@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Associe-se — Esporte Clube Beira Mar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #C0171D;
+    --red-dark: #8B0F13;
+    --red-bright: #E8202A;
+    --black: #0D0D0D;
+    --black-soft: #1A1A1A;
+    --gray-dark: #2C2C2C;
+    --gray-mid: #555;
+    --white: #FFFFFF;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 68px;
+    background: rgba(13,13,13,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(192,23,29,0.3);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 14px; }
+  .logo-circle {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 2.5px solid var(--red);
+    display: flex; align-items: center; justify-content: center;
+    background: var(--black); position: relative;
+  }
+  .logo-circle::before {
+    content: ''; position: absolute; inset: 3px; border-radius: 50%;
+    border: 1.5px solid rgba(192,23,29,0.4);
+  }
+  .logo-text-ecbm {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px; letter-spacing: 2px; color: var(--red);
+  }
+  .nav-brand {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--white); line-height: 1.2;
+  }
+  .nav-brand span {
+    color: rgba(255,255,255,0.4); font-weight: 300;
+    display: block; font-size: 10px; letter-spacing: 3px;
+  }
+  .nav-back {
+    text-decoration: none; color: rgba(255,255,255,0.5);
+    font-size: 12px; font-weight: 600; letter-spacing: 1.5px;
+    text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+    transition: color 0.2s;
+  }
+  .nav-back:hover { color: var(--white); }
+
+  /* HEADER */
+  .page-header {
+    padding: 120px 48px 72px;
+    background: var(--black-soft);
+    border-bottom: 3px solid var(--red);
+    position: relative; overflow: hidden; text-align: center;
+  }
+  .page-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 80%, rgba(192,23,29,0.1) 0%, transparent 65%);
+  }
+  .header-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 4px;
+    text-transform: uppercase; color: var(--red);
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    margin-bottom: 18px; position: relative; z-index: 1;
+  }
+  .header-eyebrow::before, .header-eyebrow::after {
+    content: ''; width: 24px; height: 1.5px; background: var(--red);
+  }
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 7vw, 90px); line-height: 0.92; letter-spacing: 2px;
+    color: var(--white); position: relative; z-index: 1;
+  }
+  .page-header h1 .accent { color: var(--red); }
+  .page-header h1 .outline {
+    -webkit-text-stroke: 1.5px rgba(255,255,255,0.35); color: transparent;
+  }
+  .page-header p {
+    font-size: 16px; font-weight: 300; color: rgba(255,255,255,0.5);
+    max-width: 520px; margin: 18px auto 0; line-height: 1.7;
+    position: relative; z-index: 1;
+  }
+
+  /* AVISO 3 MENSALIDADES */
+  .aviso-strip {
+    background: rgba(192,23,29,0.12);
+    border-bottom: 1px solid rgba(192,23,29,0.25);
+    padding: 14px 48px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .aviso-strip span { font-size: 18px; }
+  .aviso-strip p {
+    font-size: 13px; color: rgba(255,255,255,0.65); line-height: 1.4;
+  }
+  .aviso-strip p strong { color: var(--white); }
+
+  /* CARDS SECTION */
+  .planos-section {
+    padding: 72px 48px 96px;
+    display: flex; flex-direction: column; align-items: center; gap: 32px;
+  }
+
+  .plano-card-big {
+    width: 100%; max-width: 860px;
+    background: var(--black-soft);
+    border: 1px solid var(--gray-dark);
+    border-radius: 16px; overflow: hidden;
+    transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+  }
+  .plano-card-big:hover {
+    transform: translateY(-6px);
+    border-color: var(--red);
+    box-shadow: 0 20px 60px rgba(192,23,29,0.15);
+  }
+
+  /* HEADER DO CARD */
+  .card-header {
+    padding: 36px 40px 32px;
+    background: var(--red);
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;
+  }
+  .card-header.dark { background: var(--gray-dark); }
+  .card-header::after {
+    content: '';
+    position: absolute; bottom: -40px; right: -40px;
+    width: 200px; height: 200px; border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+    pointer-events: none;
+  }
+  .card-header::before {
+    content: '';
+    position: absolute; top: -30px; left: -30px;
+    width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+    pointer-events: none;
+  }
+  .card-header-left { position: relative; z-index: 1; }
+  .card-icon { font-size: 44px; margin-bottom: 10px; display: block; }
+  .card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 38px; letter-spacing: 2px; color: white; line-height: 1;
+  }
+  .card-tagline {
+    font-size: 14px; color: rgba(255,255,255,0.7);
+    font-weight: 300; margin-top: 6px; max-width: 340px; line-height: 1.5;
+  }
+  .card-header-right { position: relative; z-index: 1; text-align: right; flex-shrink: 0; }
+  .card-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: white; font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 20px; margin-bottom: 16px;
+  }
+  .card-price-wrap { display: flex; align-items: flex-end; gap: 4px; justify-content: flex-end; }
+  .card-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 64px; font-weight: 700; color: white; line-height: 1;
+  }
+  .card-price-info { padding-bottom: 8px; }
+  .card-price-info .per { font-size: 14px; color: rgba(255,255,255,0.65); }
+  .card-price-info .inscricao {
+    font-size: 12px; color: rgba(255,255,255,0.5);
+    margin-top: 4px; text-align: right;
+  }
+  .card-price-info .inscricao strong { color: rgba(255,255,255,0.85); }
+
+  /* BODY DO CARD */
+  .card-body { padding: 32px 40px 36px; }
+
+  .card-body-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+  }
+
+  .features-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; color: var(--red);
+    margin-bottom: 14px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .features-col h4::after { content: ''; flex: 1; height: 1px; background: var(--gray-dark); }
+
+  .features-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .features-list li {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.4;
+  }
+  .features-list li .ico {
+    color: var(--red); font-weight: 700; flex-shrink: 0;
+    margin-top: 1px; font-size: 13px;
+  }
+  .features-list li .ico.ok { color: #4ade80; }
+  .features-list li strong { color: white; font-weight: 600; }
+
+  /* Destaque dependentes */
+  .dep-highlight {
+    margin-top: 20px; padding: 16px 18px;
+    background: var(--black);
+    border: 1px solid var(--gray-dark);
+    border-left: 3px solid var(--red);
+    border-radius: 8px;
+  }
+  .dep-highlight .dep-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--red); margin-bottom: 8px;
+  }
+  .dep-list { display: flex; flex-direction: column; gap: 5px; }
+  .dep-list span {
+    font-size: 13px; color: rgba(255,255,255,0.6);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .dep-list span::before { content: '·'; color: var(--red); font-size: 18px; line-height: 0; }
+
+  /* Aviso isencao */
+  .isencao-box {
+    margin-top: 16px; padding: 14px 18px;
+    background: rgba(74,222,128,0.06);
+    border: 1px solid rgba(74,222,128,0.2);
+    border-radius: 8px;
+    font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5;
+  }
+  .isencao-box strong { color: #4ade80; }
+
+  /* Info marina */
+  .marina-info {
+    margin-top: 16px; padding: 16px 18px;
+    background: var(--black);
+    border: 1px solid var(--gray-dark);
+    border-left: 3px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+  }
+  .marina-info .mi-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 8px;
+  }
+  .marina-info .mi-list { display: flex; flex-direction: column; gap: 5px; }
+  .marina-info .mi-list span {
+    font-size: 13px; color: rgba(255,255,255,0.55);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .marina-info .mi-list span::before { content: '⚓'; font-size: 12px; }
+
+  /* CTA do card */
+  .card-cta-row {
+    padding: 0 40px 36px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .btn-plano {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--red); color: white;
+    padding: 15px 36px; border-radius: 6px; text-decoration: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; transition: all 0.2s;
+    border: 2px solid var(--red);
+  }
+  .btn-plano:hover {
+    background: var(--red-bright); border-color: var(--red-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(192,23,29,0.35);
+  }
+  .btn-plano.outline {
+    background: transparent; border-color: var(--gray-mid);
+    color: rgba(255,255,255,0.65);
+  }
+  .btn-plano.outline:hover {
+    border-color: var(--red); color: white; background: transparent;
+    box-shadow: none; transform: none;
+  }
+  .card-cta-note {
+    font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.5;
+  }
+  .card-cta-note strong { color: rgba(255,255,255,0.6); }
+
+  /* AVISO FINAL */
+  .bottom-info {
+    max-width: 860px; width: 100%;
+    background: var(--black-soft); border: 1px solid var(--gray-dark);
+    border-radius: 12px; padding: 28px 32px;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px;
+  }
+  .bi-item { display: flex; align-items: flex-start; gap: 12px; }
+  .bi-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+  .bi-title { font-size: 13px; font-weight: 600; color: white; margin-bottom: 3px; }
+  .bi-text { font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .page-header { padding: 100px 20px 56px; }
+    .aviso-strip { padding: 14px 20px; }
+    .planos-section { padding: 48px 20px 72px; gap: 24px; }
+    .card-header { flex-direction: column; padding: 28px 24px 24px; }
+    .card-header-right { text-align: left; }
+    .card-price-wrap { justify-content: flex-start; }
+    .card-price-info .inscricao { text-align: left; }
+    .card-body { padding: 24px 24px 28px; }
+    .card-body-grid { grid-template-columns: 1fr; gap: 24px; }
+    .card-cta-row { padding: 0 24px 28px; flex-direction: column; align-items: flex-start; }
+    .bottom-info { grid-template-columns: 1fr; gap: 20px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="logo-circle">
+      <span class="logo-text-ecbm">ECBM</span>
+    </div>
+    <div>
+      <div class="nav-brand">Esporte Clube<br><span>Beira Mar</span></div>
+    </div>
+  </div>
+  <a href="index.html" class="nav-back">← Voltar ao site</a>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="header-eyebrow">Associação</div>
+  <h1>ESCOLHA SEU<br><span class="accent">PLANO</span> DE <span class="outline">SÓCIO</span></h1>
+  <p>Dois planos para diferentes perfis. Ambos dão acesso completo ao clube para você e sua família — sem joia de adesão.</p>
+</div>
+
+<!-- AVISO -->
+<div class="aviso-strip">
+  <span>⚠️</span>
+  <p>No ato da inscrição são cobradas <strong>3 mensalidades antecipadas</strong>. Sem joia. Vencimento mensal todo dia 10.</p>
+</div>
+
+<!-- CARDS -->
+<div class="planos-section">
+
+  <!-- ===== CARD SÓCIO CONTRIBUINTE ===== -->
+  <div class="plano-card-big">
+    <div class="card-header">
+      <div class="card-header-left">
+        <span class="card-icon">🏊</span>
+        <div class="card-name">Sócio Contribuinte</div>
+        <div class="card-tagline">Acesso completo ao clube, piscina e todos os espaços para você e sua família.</div>
+      </div>
+      <div class="card-header-right">
+        <div class="card-badge">✦ Mais popular</div>
+        <div class="card-price-wrap">
+          <span class="card-price">R$140</span>
+          <div class="card-price-info">
+            <div class="per">/mês</div>
+            <div class="inscricao">Inscrição: <strong>R$ 420,00</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-body-grid">
+
+        <div class="features-col">
+          <h4>O que está incluso</h4>
+          <ul class="features-list">
+            <li><span class="ico ok">✓</span> Acesso a <strong>toda a estrutura</strong> do clube</li>
+            <li><span class="ico ok">✓</span> Uso da <strong>piscina</strong> incluso sempre</li>
+            <li><span class="ico ok">✓</span> Acesso ao píer e orla da baía</li>
+            <li><span class="ico ok">✓</span> Reserva de quiosques e churrasqueiras</li>
+            <li><span class="ico ok">✓</span> Estacionamento com valor reduzido</li>
+            <li><span class="ico ok">✓</span> <strong>Sem cobrança de joia</strong> de adesão</li>
+          </ul>
+
+          <div class="isencao-box">
+            🎉 <strong>Sem joia de adesão!</strong> Você paga apenas as 3 primeiras mensalidades no ato da inscrição (R$ 420,00) e já começa a aproveitar tudo.
+          </div>
+        </div>
+
+        <div class="features-col">
+          <h4>Dependentes</h4>
+          <ul class="features-list">
+            <li><span class="ico">✓</span> Esposa / Marido</li>
+            <li><span class="ico">✓</span> Filhos — homem até 17 anos</li>
+            <li><span class="ico">✓</span> Filha — até casar</li>
+            <li><span class="ico">✓</span> Pai e Mãe</li>
+            <li><span class="ico">✓</span> Sogro e Sogra</li>
+          </ul>
+
+          <div class="dep-highlight">
+            <div class="dep-title">💳 Taxa de dependentes</div>
+            <div class="dep-list">
+              <span>R$ 90,00 por trimestre</span>
+              <span>Cobrado em: jan / abr / jul / out</span>
+              <span style="color:rgba(74,222,128,0.85)">Crianças até 10 anos — <strong>isentas</strong></span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card-cta-row">
+      <a href="formulario.html?plano=contribuinte" class="btn-plano">
+        Quero me associar →
+      </a>
+      <div class="card-cta-note">
+        <strong>Processo simples e rápido.</strong><br>
+        Preencha o formulário e nossa equipe entra em contato pelo WhatsApp.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== CARD SÓCIO MARINA ===== -->
+  <div class="plano-card-big">
+    <div class="card-header dark">
+      <div class="card-header-left">
+        <span class="card-icon">⛵</span>
+        <div class="card-name">Sócio Marina</div>
+        <div class="card-tagline">Tudo do plano Contribuinte + vaga exclusiva na garagem náutica coberta da Marina Beira-Mar Jet Club.</div>
+      </div>
+      <div class="card-header-right">
+        <div class="card-badge">⚓ Náutico</div>
+        <div class="card-price-wrap">
+          <span class="card-price">R$500</span>
+          <div class="card-price-info">
+            <div class="per">/mês</div>
+            <div class="inscricao">Inscrição: <strong>R$ 1.500,00</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <div class="card-body-grid">
+
+        <div class="features-col">
+          <h4>O que está incluso</h4>
+          <ul class="features-list">
+            <li><span class="ico ok">✓</span> <strong>Tudo do plano Contribuinte</strong></li>
+            <li><span class="ico ok">✓</span> Vaga na <strong>garagem náutica coberta</strong></li>
+            <li><span class="ico ok">✓</span> Total segurança — vagas cobertas e monitoradas</li>
+            <li><span class="ico ok">✓</span> Limpeza e conservação semanais da vaga</li>
+            <li><span class="ico ok">✓</span> Rampa de subida e descida para a água</li>
+            <li><span class="ico ok">✓</span> Atendimento especializado para embarcações</li>
+          </ul>
+
+          <div class="marina-info">
+            <div class="mi-title">Ideal para</div>
+            <div class="mi-list">
+              <span>Jet ski</span>
+              <span>Lancha</span>
+              <span>Barco a motor</span>
+              <span>Qualquer embarcação</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="features-col">
+          <h4>Dependentes</h4>
+          <ul class="features-list">
+            <li><span class="ico ok">✓</span> Esposa / Marido</li>
+            <li><span class="ico ok">✓</span> Filhos — homem até 17 anos</li>
+            <li><span class="ico ok">✓</span> Filha — até casar</li>
+            <li><span class="ico ok">✓</span> Pai e Mãe</li>
+            <li><span class="ico ok">✓</span> Sogro e Sogra</li>
+          </ul>
+
+          <div class="isencao-box">
+            ✅ No plano Marina, os dependentes já estão <strong>inclusos no valor da mensalidade</strong> — sem cobrança trimestral adicional.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card-cta-row">
+      <a href="formulario.html?plano=marina" class="btn-plano">
+        Quero vaga náutica →
+      </a>
+      <div class="card-cta-note">
+        <strong>Já inclui a associação.</strong><br>
+        Ideal para quem tem embarcação e quer praticidade e segurança.
+      </div>
+    </div>
+  </div>
+
+  <!-- INFO FINAL -->
+  <div class="bottom-info">
+    <div class="bi-item">
+      <span class="bi-icon">📋</span>
+      <div>
+        <div class="bi-title">Documentação necessária</div>
+        <div class="bi-text">Certidão de casamento, nascimento dos filhos e foto 3x4 do titular e dependentes. Marina: doc da embarcação e Arrais.</div>
+      </div>
+    </div>
+    <div class="bi-item">
+      <span class="bi-icon">📞</span>
+      <div>
+        <div class="bi-title">Dúvidas? Fale conosco</div>
+        <div class="bi-text">(13) 3567-1277 — WhatsApp e telefone. Atendimento seg–sex 9h–18h, fins de semana 8h–20h.</div>
+      </div>
+    </div>
+    <div class="bi-item">
+      <span class="bi-icon">📍</span>
+      <div>
+        <div class="bi-title">Visite o clube</div>
+        <div class="bi-text">Av. Tupiniquins, 724 — Japuí, São Vicente/SP. Assine a proposta e comece a aproveitar imediatamente.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /planos-section -->
+
+</body>
+</html>
